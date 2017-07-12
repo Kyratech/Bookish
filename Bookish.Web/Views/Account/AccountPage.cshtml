@@ -1,18 +1,21 @@
-﻿@model Bookish.Web.Models.LoginViewModel
+﻿@using Microsoft.AspNet.Identity
+
 @{
     ViewBag.Title = "Account Page";
 }
 
 <!DOCTYPE html>
 <html>
-<head>
-    <title>Account page</title>
-	<meta charset="utf-8" />
-</head>
-<body>
-<p> Howdy! </p>
-<p> @Model.Email </p>
-<p> @Model.Password </p>
-<p> See ya! </p>
-</body>
+    <head>
+        <title>Account page</title>
+	    <meta charset="utf-8" />
+    </head>
+    <body>
+        <p> Howdy! </p>
+        <p> @User.Identity.GetUserName() </p>
+        <p> See ya! </p>
+        <div>
+            @Html.ActionLink("Manage account", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+        </div>
+    </body>
 </html>
