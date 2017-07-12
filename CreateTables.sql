@@ -1,10 +1,10 @@
 CREATE TABLE Accounts (
-	Username nvarchar(30) NOT NULL,
+	Email nvarchar(50) NOT NULL,
 	AccountPassword nvarchar(max) NOT NULL,
 
-	PRIMARY KEY(Username),
+	PRIMARY KEY(Email),
 )
-
+/*
 CREATE TABLE Books (
 	BookId int IDENTITY NOT NULL,
 	ISBN nvarchar(max) NOT NULL,
@@ -13,15 +13,15 @@ CREATE TABLE Books (
 
 	PRIMARY KEY(BookId),
 )
-
+*/
 CREATE TABLE BorrowedBooks (
-	Account nvarchar(30) NOT NULL,
+	Account nvarchar(50) NOT NULL,
 	BookId int NOT NULL,
 	Borrowed Date NOT NULL,
 	Due Date NOT NULL,
 
 	PRIMARY KEY(Account, BookId),
-	FOREIGN KEY(Account) REFERENCES Accounts(Username),
+	FOREIGN KEY(Account) REFERENCES Accounts(Email),
 	FOREIGN KEY(BookId) REFERENCES Books(BookId),
 )
 

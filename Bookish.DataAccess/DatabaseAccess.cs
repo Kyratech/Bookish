@@ -34,5 +34,30 @@ namespace Bookish.DataAccess
 
             return responseString.ToString();
         }
+
+        public string ReadBooksIntoTable()
+        {
+            IDbConnection db = new SqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString);
+            string SqlString = "SELECT * FROM Books";
+            var ourBooks = (List<Book>)db.Query<Book>(SqlString);
+
+            StringBuilder responseString = new StringBuilder();
+
+            //Table title content/formatiing
+            responseString.Append("<table style=\"width: 100 % \">");
+            responseString.Append("<tr><th>ISBN</th><th>Title</th><th>Author</th>");
+
+            foreach (var book in ourBooks)
+            {
+                responseString.Append("<tr>");
+                responseString.Append("<td>" + book.Isbn + "</td>");
+                responseString.Append("<td>" + book.Title + "</td>");
+                responseString.Append("<td>" + book.Author + "</td>");
+                responseString.Append("</tr>");
+            }
+            responseString.Append("</table>");
+
+            return responseString.ToString();
+        }
     }
 }

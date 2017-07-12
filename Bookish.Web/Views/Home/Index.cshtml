@@ -1,0 +1,30 @@
+﻿@model Bookish.Web.Models.BookDatabase
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<html>
+    <head>
+        <style>
+            table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+            }
+
+            th, td {
+            padding: 10px;
+            text-align: left;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="jumbotron">
+            <h1>Bookish Library</h1>
+        </div>
+
+        <div class="row">
+            @Html.Raw(Model.Table)
+        </div>
+    </body>
+</html>
+
