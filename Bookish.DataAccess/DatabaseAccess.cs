@@ -38,7 +38,7 @@ namespace Bookish.DataAccess
         public string ReadBooksIntoTable()
         {
             IDbConnection db = new SqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString);
-            string SqlString = "SELECT * FROM Books";
+            string SqlString = "SELECT * FROM Books ORDER BY Title";
             var ourBooks = (List<Book>)db.Query<Book>(SqlString);
 
             StringBuilder responseString = new StringBuilder();
