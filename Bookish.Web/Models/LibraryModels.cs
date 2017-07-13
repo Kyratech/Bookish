@@ -51,6 +51,30 @@ namespace Bookish.Web.Models
         public int NumberCopies { get; set; }
     }
 
+    public class BookData
+    {
+        public string Title { get; set; }
+
+        public string Author { get; set; }
+
+        public string ISBN { get; set; }
+
+        public int TotalCopies { get; set; }
+
+        public int FreeCopies { get; set; }
+
+        private string Table { get; set; }
+
+        public BookData(string isbn)
+        {
+            DatabaseAccess db = new DatabaseAccess();
+
+            Table = db.GetBooksOnLoan(isbn);
+
+
+        }
+    }
+
     public enum SearchType
     {
         Title,

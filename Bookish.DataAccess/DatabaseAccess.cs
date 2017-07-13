@@ -94,5 +94,38 @@ namespace Bookish.DataAccess
                 db.Query(sqlString);
             }
         }
+
+        public string GetBooksOnLoan(string isbn)
+        {
+            IDbConnection db = new SqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString);
+            string query = "SELECT ISNULL(AspNetUsers.Email, 'Available') AS Email, BorrowedBooks.Due AS Due FROM BorrowedBooks INNER JOIN AspNetUsers ON BorrowedBooks.Account = AspNetUsers.Id RIGHT JOIN Books ON BorrowedBooks.BookId = Books.BookId WHERE Books.ISBN = '" + isbn+ "'";
+            var ourBooks = (List<BookWithLoanStatus>)db.Query<BookWithLoanStatus>(query);
+
+            StringBuilder responseString = new StringBuilder();
+
+            //Table title content/formatiing
+            responseString.Append("<table style=\"width: 100 % \">");
+            responseString.Append("<tr><th>On loan to</th><th>Due at</th>");
+
+            foreach (var book in ourBooks)
+            {
+                responseString.Append("<tr>");
+                responseString.Append("<td>" + book.Email + "</td>");
+                responseString.Append("<td>" + book.Due + "</td>");
+                responseString.Append("</tr>");
+            }
+            responseString.Append("</table>");
+
+            return responseString.ToString();
+        }
+
+        public int CountCopiesTotal(string isbn)
+        {
+            IDbConnection db = new SqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString);
+            string query = "SELECT COUNT(*) FROM Books WHERE Isbn = '"+ isbn +"'";
+            var copies = (int) db.ExecuteScalar(query);
+
+            return copies;
+        }
     }
 }
