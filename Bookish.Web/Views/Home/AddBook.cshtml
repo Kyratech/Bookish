@@ -1,0 +1,47 @@
+﻿@model Bookish.Web.Models.Book
+
+<div class="col-md-8">
+    <section id="loginForm">
+        @using (Html.BeginForm("AddBook", "Home", FormMethod.Post))
+        {
+            <h4>Add a book to the catalogue</h4>
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(m => m.Title, new { @class = "col-md-2 control-label" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(m => m.Title, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.Title, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Author, new { @class = "col-md-2 control-label" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(m => m.Author, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.Author, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.ISBN, new { @class = "col-md-2 control-label" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(m => m.ISBN, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.ISBN, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.NumberCopies, new { @class = "col-md-2 control-label" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(m => m.NumberCopies, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.NumberCopies, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Add Book" class="btn btn-default" />
+                </div>
+            </div>
+            <p>
+                @Html.ActionLink("Home", "Index");
+            </p>
+        }
+    </section>
+</div>

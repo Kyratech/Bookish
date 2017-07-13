@@ -53,7 +53,8 @@
                     <br>
                     @Html.RadioButtonFor(m => m.SearchSection, SearchType.Author) @: Author
                 }
-                
+                <br>
+                @Html.ActionLink("Add Book", "AddBook", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
         </div>
     </body>

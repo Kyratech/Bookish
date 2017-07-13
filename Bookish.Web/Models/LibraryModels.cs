@@ -1,4 +1,7 @@
-﻿using Bookish.DataAccess;
+﻿using System;
+using Bookish.DataAccess;
+using System.ComponentModel.DataAnnotations;
+using System.Net;
 
 namespace Bookish.Web.Models
 {
@@ -27,6 +30,25 @@ namespace Bookish.Web.Models
             SearchTerm = search;
             SearchMessage = "Showing results for: " + search + "\n\n";
         }
+    }
+
+    public class Book
+    {
+        [Required]
+        [Display(Name = "Title")]
+        public string Title { get; set; }
+
+        [Required]
+        [Display(Name = "Author")]
+        public string Author { get; set; }
+
+        [Required]
+        [Display(Name = "ISBN")]
+        public string ISBN { get; set; }
+
+        [Required]
+        [Display(Name = "Number of Copies")]
+        public int NumberCopies { get; set; }
     }
 
     public enum SearchType

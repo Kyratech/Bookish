@@ -63,7 +63,7 @@ namespace Bookish.DataAccess
         public string SearchBooksIntoTable(string term, string type)
         {
             IDbConnection db = new SqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString);
-            string SqlString = "SELECT * FROM Books WHERE " + type +  " = '" + term + "' ORDER BY Title";
+            string SqlString = "SELECT * FROM Books WHERE " + type +  " LIKE '%" + term + "%' ORDER BY Title";
             var ourBooks = (List<Book>)db.Query<Book>(SqlString);
 
             StringBuilder responseString = new StringBuilder();
@@ -83,6 +83,16 @@ namespace Bookish.DataAccess
             responseString.Append("</table>");
 
             return responseString.ToString();
+        }
+
+        public void AddBook(string title, string author, string isbn, int copies)
+        {
+            for (int i = 0; i < copies; i++)
+            {
+                IDbConnection db = new SqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString);
+                string sqlString = "INSERT INTO Books (ISBN, Title, Author) VALUES ( '" + isbn + "', '" + title + "', '" + author + "')";
+                db.Query(sqlString);
+            }
         }
     }
 }
