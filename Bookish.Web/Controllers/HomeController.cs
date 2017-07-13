@@ -23,7 +23,7 @@ namespace Bookish.Web.Controllers
             //return RedirectToAction("AccountPage", "Account");
             if (!model.SearchTerm.IsEmpty())
             {
-                db = new BookDatabase(model.SearchTerm);
+                db = new BookDatabase(model.SearchTerm, model.SearchSection);
             }
             else
             {

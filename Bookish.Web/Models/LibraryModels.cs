@@ -10,6 +10,8 @@ namespace Bookish.Web.Models
 
         public string SearchMessage { get; }
 
+        public SearchType SearchSection { get; set; }
+
         public BookDatabase()
         {
             DatabaseAccess dbAccess = new DatabaseAccess();
@@ -17,12 +19,19 @@ namespace Bookish.Web.Models
             SearchMessage = "";
         }
 
-        public BookDatabase(string search)
+        public BookDatabase(string search, SearchType section)
         {
             DatabaseAccess dbAccess = new DatabaseAccess();
-            Table = dbAccess.SearchBooksIntoTable(search);
+
+            Table = dbAccess.SearchBooksIntoTable(search, section.ToString());
             SearchTerm = search;
             SearchMessage = "Showing results for: " + search + "\n\n";
         }
     }
+
+    public enum SearchType
+    {
+        Title,
+        Author
+    };
 }

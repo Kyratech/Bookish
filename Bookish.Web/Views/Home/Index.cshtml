@@ -1,4 +1,5 @@
-﻿@model Bookish.Web.Models.BookDatabase
+﻿@using Bookish.Web.Models
+@model Bookish.Web.Models.BookDatabase
 @{
     ViewBag.Title = "Home Page";
 }
@@ -47,7 +48,12 @@
                 @using (Html.BeginForm("Index", "Home", FormMethod.Post))
                 {
                     @Html.TextBoxFor(m => m.SearchTerm)
+                    <br>
+                    @Html.RadioButtonFor(m => m.SearchSection, SearchType.Title) @: Title
+                    <br>
+                    @Html.RadioButtonFor(m => m.SearchSection, SearchType.Author) @: Author
                 }
+                
             </div>
         </div>
     </body>

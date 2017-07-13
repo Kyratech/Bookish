@@ -60,10 +60,10 @@ namespace Bookish.DataAccess
             return responseString.ToString();
         }
 
-        public string SearchBooksIntoTable(string term)
+        public string SearchBooksIntoTable(string term, string type)
         {
             IDbConnection db = new SqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString);
-            string SqlString = "SELECT * FROM Books WHERE Title = '" + term + "' ORDER BY Title";
+            string SqlString = "SELECT * FROM Books WHERE " + type +  " = '" + term + "' ORDER BY Title";
             var ourBooks = (List<Book>)db.Query<Book>(SqlString);
 
             StringBuilder responseString = new StringBuilder();
