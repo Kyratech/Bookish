@@ -15,15 +15,40 @@
             padding: 10px;
             text-align: left;
             }
+
+            #container {
+                display: flex;
+                justify-content: stretch;
+            }
+
+            .column.left {
+                flex: 1;
+                margin-right: auto;
+            }
+
+            .column.right {
+                width: 250px;
+                flex: 0 0 250px;
+                margin-left: 10px;
+            }
         </style>
     </head>
     <body>
-        <div class="jumbotron">
-            <h1>Catalogue</h1>
-        </div>
-
-        <div class="row">
-            @Html.Raw(Model.Table)
+        <div id="container">
+            <div class="column left">
+                <h2>Online Catalogue</h2>
+                <div class="row">
+                    <p>@Model.SearchMessage</p>
+                    @Html.Raw(Model.Table)
+                </div>
+            </div>
+            <div class="column right">
+                <h2>Search</h2>
+                @using (Html.BeginForm("Index", "Home", FormMethod.Post))
+                {
+                    @Html.TextBoxFor(m => m.SearchTerm)
+                }
+            </div>
         </div>
     </body>
 </html>
