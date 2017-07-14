@@ -64,20 +64,20 @@ namespace Bookish.Web.Models
 
         public int FreeCopies { get; set; }
 
-        public string Table { get; set; }
+        public List<BookWithLoanStatus> Data { get; set; }
 
         public BookData(Book book)
         {
             DatabaseAccess db = new DatabaseAccess();
 
-            Table = db.GetBooksOnLoan(book.Isbn);
+            Data = db.GetBooksOnLoan(book.Isbn);
+
+            TotalCopies = db.CountCopiesTotal(book.Isbn);
+            FreeCopies = TotalCopies - db.CountCopiesBorrowed(book.Isbn);
 
             Title = book.Title;
             Author = book.Author;
             ISBN = book.Isbn;
-
-            TotalCopies = 2;
-            FreeCopies = 1;
         }
     }
 
