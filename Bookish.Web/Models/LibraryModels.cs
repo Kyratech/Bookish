@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Bookish.DataAccess;
 using System.ComponentModel.DataAnnotations;
 using System.Net;
@@ -7,18 +8,18 @@ namespace Bookish.Web.Models
 {
     public class BookDatabase
     {
-        public string Table { get; set; }
-
         public string SearchTerm { get; set; }
 
         public string SearchMessage { get; }
 
         public SearchType SearchSection { get; set; }
 
+        public List<Book> data { get; set; }
+
         public BookDatabase()
         {
             DatabaseAccess dbAccess = new DatabaseAccess();
-            Table = dbAccess.ReadBooksIntoTable();
+            data = dbAccess.FetchAllBooksInDb();
             SearchMessage = "";
         }
 
@@ -26,13 +27,13 @@ namespace Bookish.Web.Models
         {
             DatabaseAccess dbAccess = new DatabaseAccess();
 
-            Table = dbAccess.SearchBooksIntoTable(search, section.ToString());
+            data = dbAccess.FetchSearchedBooksInDb(search, section.ToString());
             SearchTerm = search;
             SearchMessage = "Showing results for: " + search + "\n\n";
         }
     }
 
-    public class Book
+    public class NewBookModel
     {
         [Required]
         [Display(Name = "Title")]
@@ -63,7 +64,7 @@ namespace Bookish.Web.Models
 
         public int FreeCopies { get; set; }
 
-        private string Table { get; set; }
+        public string Table { get; set; }
 
         public BookData(string isbn)
         {
@@ -71,7 +72,8 @@ namespace Bookish.Web.Models
 
             Table = db.GetBooksOnLoan(isbn);
 
-
+            TotalCopies = 2;
+            FreeCopies = 1;
         }
     }
 

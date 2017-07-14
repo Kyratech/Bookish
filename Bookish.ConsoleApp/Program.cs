@@ -16,7 +16,7 @@ namespace Bookish.ConsoleApp
         static void Main(string[] args)
         {
             DatabaseAccess dbAccess = new DatabaseAccess();
-            Console.WriteLine(dbAccess.ReadAllBooks());
+            Console.WriteLine(dbAccess.GetBooksOnLoan("50"));
         }
     }
 }

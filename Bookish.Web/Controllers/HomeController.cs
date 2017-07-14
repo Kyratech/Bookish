@@ -12,7 +12,6 @@ using System.Security.Claims;
 using Bookish.DataAccess;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
-using Book = Bookish.Web.Models.Book;
 
 namespace Bookish.Web.Controllers
 {
@@ -52,7 +51,7 @@ namespace Bookish.Web.Controllers
         // POST: /Account/Register
         [HttpPost]
         [AllowAnonymous]
-        public ActionResult AddBook(Book model)
+        public ActionResult AddBook(NewBookModel model)
         {
             if (ModelState.IsValid)
             {
@@ -65,6 +64,8 @@ namespace Bookish.Web.Controllers
             // If we got this far, something failed, redisplay form
             return View(model);
         }
+
+        
 
         public ActionResult About()
         {

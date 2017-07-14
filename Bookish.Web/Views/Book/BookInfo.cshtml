@@ -1,0 +1,71 @@
+﻿@using Bookish.Web.Models
+@model Bookish.Web.Models.BookData
+    
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Catalogue record: @Model.Title</title>
+    <meta charset="utf-8" />
+    <style>
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+
+         #container {
+             display: flex;
+             justify-content: stretch;
+         }
+
+        .column.left {
+            flex: 1;
+            margin-right: auto;
+        }
+
+        .column.right {
+            width: 250px;
+            flex: 0 0 250px;
+            margin-left: 10px;
+        }
+    </style>
+</head>
+<body>
+<div id="container">
+    <div class="column left">
+        <h2>@Model.Title</h2>
+        <div class="row">
+            <table>
+                <tr>
+                    <td>Total copies: </td>
+                    <td>@Model.TotalCopies</td>
+                </tr>
+                <tr>
+                    <td>Available copies:</td>
+                    <td>@Model.FreeCopies</td>
+                </tr>
+            </table>
+            @Html.Raw(Model.Table)
+        </div>
+    </div>
+    <div class="column right">
+        <table>
+            <tr>
+                <td>Author: </td>
+                <td>@Model.Author</td>
+            </tr>
+            <tr>
+                <td>ISBN:</td>
+                <td>@Model.ISBN</td>
+            </tr>
+        </table>
+    </div>
+</div>
+</body>
+</html>

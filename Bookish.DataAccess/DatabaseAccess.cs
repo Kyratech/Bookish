@@ -35,54 +35,22 @@ namespace Bookish.DataAccess
             return responseString.ToString();
         }
 
-        public string ReadBooksIntoTable()
+        public List<Book> FetchAllBooksInDb()
         {
             IDbConnection db = new SqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString);
             string SqlString = "SELECT * FROM Books ORDER BY Title";
             var ourBooks = (List<Book>)db.Query<Book>(SqlString);
 
-            StringBuilder responseString = new StringBuilder();
-
-            //Table title content/formatiing
-            responseString.Append("<table style=\"width: 100 % \">");
-            responseString.Append("<tr><th>ISBN</th><th>Title</th><th>Author</th>");
-
-            foreach (var book in ourBooks)
-            {
-                responseString.Append("<tr>");
-                responseString.Append("<td>" + book.Isbn + "</td>");
-                responseString.Append("<td>" + book.Title + "</td>");
-                responseString.Append("<td>" + book.Author + "</td>");
-                responseString.Append("</tr>");
-            }
-            responseString.Append("</table>");
-
-            return responseString.ToString();
+            return ourBooks;
         }
 
-        public string SearchBooksIntoTable(string term, string type)
+        public List<Book> FetchSearchedBooksInDb(string term, string type)
         {
             IDbConnection db = new SqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString);
             string SqlString = "SELECT * FROM Books WHERE " + type +  " LIKE '%" + term + "%' ORDER BY Title";
             var ourBooks = (List<Book>)db.Query<Book>(SqlString);
 
-            StringBuilder responseString = new StringBuilder();
-
-            //Table title content/formatiing
-            responseString.Append("<table style=\"width: 100 % \">");
-            responseString.Append("<tr><th>ISBN</th><th>Title</th><th>Author</th>");
-
-            foreach (var book in ourBooks)
-            {
-                responseString.Append("<tr>");
-                responseString.Append("<td>" + book.Isbn + "</td>");
-                responseString.Append("<td>" + book.Title + "</td>");
-                responseString.Append("<td>" + book.Author + "</td>");
-                responseString.Append("</tr>");
-            }
-            responseString.Append("</table>");
-
-            return responseString.ToString();
+            return ourBooks;
         }
 
         public void AddBook(string title, string author, string isbn, int copies)
@@ -111,7 +79,12 @@ namespace Bookish.DataAccess
             {
                 responseString.Append("<tr>");
                 responseString.Append("<td>" + book.Email + "</td>");
-                responseString.Append("<td>" + book.Due + "</td>");
+
+                string dueString = book.Due;
+                if (dueString == null)
+                    dueString = "-";
+
+                responseString.Append("<td>" + dueString + "</td>");
                 responseString.Append("</tr>");
             }
             responseString.Append("</table>");
