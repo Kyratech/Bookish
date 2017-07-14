@@ -4,18 +4,16 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Bookish.Web.Models;
+using Bookish.DataAccess;
 
 namespace Bookish.Web.Controllers
 {
     public class BookController : Controller
     {
         [HttpGet]
-        public ActionResult BookInfo(string isbn)
+        public ActionResult BookInfo(Book bookToShow)
         {
-            BookData data = new BookData(isbn);
-            data.Author = "Ayy";
-            data.Title = "Lmao";
-            data.ISBN = isbn;
+            BookData data = new BookData(bookToShow);
 
             return View(data);
         }

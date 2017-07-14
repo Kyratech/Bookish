@@ -66,11 +66,15 @@ namespace Bookish.Web.Models
 
         public string Table { get; set; }
 
-        public BookData(string isbn)
+        public BookData(Book book)
         {
             DatabaseAccess db = new DatabaseAccess();
 
-            Table = db.GetBooksOnLoan(isbn);
+            Table = db.GetBooksOnLoan(book.Isbn);
+
+            Title = book.Title;
+            Author = book.Author;
+            ISBN = book.Isbn;
 
             TotalCopies = 2;
             FreeCopies = 1;

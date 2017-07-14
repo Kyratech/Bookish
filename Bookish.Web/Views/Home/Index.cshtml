@@ -48,13 +48,12 @@
                             {
                                 @:<tr>
                                 <td> @book.Isbn </td>
-                                <td> @Html.ActionLink(book.Title, "BookInfo", "Book", new { isbn = book.Isbn }, null) </td>
+                                <td> @Html.ActionLink(book.Title, "BookInfo", "Book", book, null) </td>
                                 <td> @book.Author </td>
                                 @:</tr>
                             }
                         }
                     </table>
-                    @Html.ActionLink("d", "BookInfo", "Book", new { isbn = "50" }, null)
                 </div>
             </div>
             <div class="column right">
