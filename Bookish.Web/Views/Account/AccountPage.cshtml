@@ -1,5 +1,6 @@
 ﻿@using Microsoft.AspNet.Identity
 
+@model Bookish.Web.Models.UsersBooksModel
 @{
     ViewBag.Title = "Account Page";
 }
@@ -8,12 +9,37 @@
 <html>
     <head>
         <title>Account page</title>
-	    <meta charset="utf-8" />
+        <meta charset="utf-8" />
+        
+        <style>
+            table, th, td {
+                border: 1px solid black;
+                border-collapse: collapse;
+            }
+
+            th, td {
+                padding: 10px;
+                text-align: left;
+            }
+        </style>
     </head>
     <body>
-        <p> Howdy! </p>
-        <p> @User.Identity.GetUserName() </p>
-        <p> See ya! </p>
+        <h2> @Model.Email </h2>
+        <h4> My books: </h4>
+    
+        <table style= "width: 100%">
+            <tr><th>Title</th><th>Due at</th></tr>
+            @{
+                foreach (var book in Model.Data)
+                {
+                    @:<tr>
+                    <td>@book.Title</td>
+                    <td>@book.Due</td>
+                    @:</tr>
+                }
+            }
+        </table>
+    
         <div>
             @Html.ActionLink("Manage account", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
         </div>

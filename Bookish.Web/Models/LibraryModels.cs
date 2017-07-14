@@ -81,6 +81,20 @@ namespace Bookish.Web.Models
         }
     }
 
+    public class UsersBooksModel
+    {
+        public string Email { get; set; }
+        public List<UsersBookWithLoanStatus> Data { get; set; }
+
+        public UsersBooksModel(string email)
+        {
+            DatabaseAccess db = new DatabaseAccess();
+
+            Data = db.GetUsersBooksOnLoan(email);
+            Email = email;
+        }
+    }
+
     public enum SearchType
     {
         Title,

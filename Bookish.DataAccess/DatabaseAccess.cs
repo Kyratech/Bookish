@@ -72,6 +72,15 @@ namespace Bookish.DataAccess
             return ourBooks;
         }
 
+        public List<UsersBookWithLoanStatus> GetUsersBooksOnLoan(string email)
+        {
+            IDbConnection db = new SqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString);
+            string query = "SELECT Books.Title AS Title, BorrowedBooks.Due AS Due FROM BorrowedBooks INNER JOIN AspNetUsers ON BorrowedBooks.Account = AspNetUsers.Id RIGHT JOIN Books ON BorrowedBooks.BookId = Books.BookId WHERE AspNetUsers.Email = '" + email + "'";
+            var ourBooks = (List<UsersBookWithLoanStatus>)db.Query<UsersBookWithLoanStatus>(query);
+
+            return ourBooks;
+        }
+
         public int CountCopiesTotal(string isbn)
         {
             IDbConnection db = new SqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString);

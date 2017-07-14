@@ -94,9 +94,11 @@ namespace Bookish.Web.Controllers
 
         [HttpGet]
         [AllowAnonymous]
-        public ActionResult AccountPage(LoginViewModel model)
+        public ActionResult AccountPage(string email)
         {
-            return View(model);
+            UsersBooksModel userBooks = new UsersBooksModel(email);
+
+            return View(userBooks);
         }
 
         //

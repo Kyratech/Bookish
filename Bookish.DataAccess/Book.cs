@@ -19,4 +19,10 @@ namespace Bookish.DataAccess
         public string Email { get; set; }
         public string Due { get; set; }
     }
+
+    public class UsersBookWithLoanStatus
+    {
+        public string Title { get; set; }
+        public string Due { get; set; }
+    }
 }
